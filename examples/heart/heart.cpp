@@ -70,11 +70,9 @@ void main() {
     // Fond noir
     vec3 col = vec3(0.0);
     
-    // Couleurs plus sombres que ta version d'origine
-    // (Ancien code : pinkColor = vec3(0.6, 0.4, 2.0); blueColor = vec3(1.0, 0.5, 0.0);)
-    // On les assombrit en divisant chaque composante.
-    vec3 pinkColor = vec3(0.3, 0.2, 1.0);   // "rose" sombre
-    vec3 blueColor = vec3(0.5, 0.25, 0.0);  // "bleu/orange" sombre
+    // Couleurs : rose et bleu
+    vec3 pinkColor = vec3(0.7, 0.5, 3.0);
+    vec3 blueColor = vec3(2.0, 0.7, 0.0);
 
     // On dessine HEART_COUNT cœurs
     for (int i = 0; i < HEART_COUNT; i++) {
@@ -89,14 +87,14 @@ void main() {
         // Halo
         float glow = getGlow(dist, radius, intensity);
         
-        // Alterne rose / "bleu"
+        // Alterne rose / bleu
         vec3 heartColor = (i % 2 == 0) ? pinkColor : blueColor;
         
         // Ajout du trait
         col += line * heartColor;
         
-        // Ajout du halo
-        col +=0.7* glow * heartColor;
+        // Ajout du halo (contribution réduite)
+        col += 0.7* glow * heartColor;  // <-- Facteur 0.5 ajouté ici
     }
     
     // On limite la valeur maximale (pour éviter la sur-saturation)
@@ -112,5 +110,6 @@ void main() {
     int b = int(255.0 * col.b);
     int color = (0xFF << 24) | (r << 16) | (g << 8) | b;
     
+    // On écrit la couleur finale
     data_0[p] = color;
 }
