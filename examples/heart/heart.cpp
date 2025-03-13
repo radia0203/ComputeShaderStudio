@@ -94,7 +94,7 @@ void main() {
         col += line * heartColor;
         
         // Ajout du halo
-        col += glow * heartColor;
+        col +=0.7* glow * heartColor;
     }
     
     // On limite la valeur maximale (pour éviter la sur-saturation)
